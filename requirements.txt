@@ -1,0 +1,8 @@
+crewai
+langchain
+langchain_community
+langchain_openai
+python-dotenv
+beautifulsoup4
+duckduckgo-search
+googletrans
