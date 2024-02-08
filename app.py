@@ -29,7 +29,9 @@ llm=get_llm()
 search_tool = DuckDuckGoSearchRun()
 
 # Define the topic of interest
-topic = 'AI driven autoscaling in kubernetes'
+#topic = 'AI driven autoscaling in kubernetes'
+
+topic = 'The future of AI'
 
 # Output lang
 lang = 'french'
@@ -67,7 +69,7 @@ class TranslateTools():
 manager = Agent(
     role='Project Manager',
     goal='Coordinate the project to ensure a seamless integration of research findings into compelling narratives',
-    verbose=True,
+    verbose=False,
     backstory=dedent("""With a strategic mindset and a knack for leadership, you excel at guiding teams towards
     their goals, ensuring projects not only meet but exceed expectations."""),
     allow_delegation=True,
@@ -80,7 +82,7 @@ manager = Agent(
 researcher = Agent(
     role='Senior Researcher',
     goal=f'Uncover groundbreaking technologies around {topic}',
-    verbose=True,
+    verbose=False,
     backstory=dedent("""Driven by curiosity, you're at the forefront of innovation, eager to explore and share
     knowledge that could change the world."""),
     llm=llm
@@ -90,7 +92,7 @@ researcher = Agent(
 writer = Agent(
     role='Writer',
     goal=f'Narrate compelling tech stories around {topic}',
-    verbose=True,
+    verbose=False,
     backstory=dedent("""With a flair for simplifying complex topics, you craft engaging narratives that captivate
     and educate, bringing new discoveries to light in an accessible manner."""),
     llm=llm
@@ -100,7 +102,7 @@ writer = Agent(
 translator = Agent(
     role='Translator',
     goal=f'You are a helpful assistant that translates english text to {lang}',
-    verbose=True,
+    verbose=False,
     backstory=f'You are a helpful assistant that translates english to {lang}.',
     llm=llm
 )
@@ -153,6 +155,7 @@ translator_task = Task(
     expected_output=f'A perfect text written in {lang}',
     agent=manager,
     tools=[TranslateTools().translate_content],
+    context=[write_article],  
 )
 
 # Forming the crew with a hierarchical process including the manager
